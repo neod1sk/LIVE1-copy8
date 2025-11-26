@@ -148,7 +148,7 @@ export const TRANSLATIONS = {
     "toast.feverLevelUp": "RECOGNITION LEVEL UP!",
     "toast.feverEnd": "Appeal Time End!",
     "share.template":
-      'Ota Level "{levelName}"! Total score {score}!\nGot {responses} responses from my idol 😭💕 #OshiLightLIVE #IdolLive',
+      'Ota Level "{levelName}"! Total score {score}!\nGot {responses} responses from my idol 😭💕 #OshiLightLIVE #liveidol',
     "penlight.off": "OFF",
     "transition.resultTitle": "RESULT!!",
     "transition.resultSubtitle": "What's Your Ota Level??",
@@ -247,7 +247,7 @@ export const TRANSLATIONS = {
     "toast.feverLevelUp": "인지도 레벨업!",
     "toast.feverEnd": "어필타임 끝!",
     "share.template":
-      '오타쿠 레벨 "{levelName}"! 토탈 스코어 {score}!\n{responses}번 오시에게서 레스를 받았어 😭💕 #오시라이트LIVE #아이돌라이브',
+      '오타쿠 레벨 "{levelName}"! 토탈 스코어 {score}!\n{responses}번 오시에게서 레스를 받았어 😭💕 #오시라이트LIVE #라이브아이돌',
     "penlight.off": "OFF",
     "transition.resultTitle": "결과 발표✨",
     "transition.resultSubtitle": "당신의 오타 레벨은??",
