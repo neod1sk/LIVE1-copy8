@@ -1125,6 +1125,13 @@ function attachEventListeners() {
       screens.showTop();
     });
   }
+  const btnRankingTop = document.getElementById("btn-ranking-top");
+  if (btnRankingTop) {
+    btnRankingTop.addEventListener("click", () => {
+      playMainSfx();
+      screens.showTop();
+    });
+  }
   const modeRadios = document.querySelectorAll('input[name="mode"]');
   modeRadios.forEach((radio) => {
     radio.addEventListener("change", () => {
