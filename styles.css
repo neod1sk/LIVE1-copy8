@@ -1608,6 +1608,16 @@ html[lang="ko"] .fever__content h2 {
   text-shadow: 0 0 12px rgba(255, 230, 102, 0.55);
 }
 
+/* Android専用スタイル調整 - iPhone/PCには影響なし */
+html.is-android .fever {
+  padding-bottom: max(60px, env(safe-area-inset-bottom) + 8px);
+}
+
+html.is-android .fever__swipe-zone {
+  --fever-swipe-size: min(160px, 50vw);
+  height: calc(var(--fever-swipe-size) + 40px);
+}
+
 .screen--result {
   padding-bottom: 32px;
   overflow-y: auto;

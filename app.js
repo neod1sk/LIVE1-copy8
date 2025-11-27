@@ -879,16 +879,23 @@ function populateResult(state) {
 
 function handleFeverSwing(e) {
   if (!game.state.fever.active || game.state.paused) return;
-  if (e.type === "pointerdown") {
-    if (e.currentTarget.setPointerCapture) {
+  
+  // タッチイベントの場合はclientXを取得
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  
+  if (e.type === "pointerdown" || e.type === "touchstart") {
+    if (e.type === "pointerdown" && e.currentTarget.setPointerCapture) {
       e.currentTarget.setPointerCapture(e.pointerId);
     }
     lastSwingDirection = null;
     setFeverPenlightMotion(null);
-  } else if (e.type === "pointermove") {
+  } else if (e.type === "pointermove" || e.type === "touchmove") {
+    if (e.type === "touchmove") {
+      e.preventDefault(); // スクロール防止
+    }
     const rect = e.currentTarget.getBoundingClientRect();
     const center = rect.left + rect.width / 2;
-    const direction = e.clientX < center ? "left" : "right";
+    const direction = clientX < center ? "left" : "right";
     if (lastSwingDirection !== direction) {
       setFeverPenlightMotion(direction);
       if (lastSwingDirection) {
@@ -898,7 +905,7 @@ function handleFeverSwing(e) {
       setFeverPenlightMotion(direction);
     }
     lastSwingDirection = direction;
-  } else if (e.type === "pointerup" || e.type === "pointercancel") {
+  } else if (e.type === "pointerup" || e.type === "pointercancel" || e.type === "touchend" || e.type === "touchcancel") {
     lastSwingDirection = null;
     setFeverPenlightMotion(null);
   }
@@ -1180,6 +1187,10 @@ function attachEventListeners() {
   ["pointerdown", "pointermove", "pointerup", "pointercancel"].forEach((type) => {
     feverZone.addEventListener(type, handleFeverSwing);
   });
+  // Android用: タッチイベントも追加（より高い感度）
+  ["touchstart", "touchmove", "touchend", "touchcancel"].forEach((type) => {
+    feverZone.addEventListener(type, handleFeverSwing, { passive: false });
+  });
 
   const howtoModal = document.getElementById("howto-modal");
   const btnHowto = document.getElementById("btn-howto");
@@ -1220,6 +1231,12 @@ function mountStore() {
 }
 
 function init() {
+  // Android検出：Androidのみ特別なスタイル調整を適用
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  if (isAndroid) {
+    document.documentElement.classList.add("is-android");
+  }
+
   initUI();
   rankingUI = new RankingUI(() => {
     screens.showRanking();
